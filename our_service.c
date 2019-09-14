@@ -289,7 +289,8 @@ uint32_t  our_service_init(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
 	*/
 	
 	// OUR_JOB: Call the function our_char_add() to add our new characteristic to the service. 
-    custom_value_char_add(p_cus, p_cus_init);
+    err_code = custom_value_char_add(p_cus, p_cus_init);
+		APP_ERROR_CHECK(err_code);
 }
 
 //void our_characteristic_update(ble_os_t *p_cus, uint8_t *value)
