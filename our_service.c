@@ -146,9 +146,10 @@ static void on_write(ble_os_t * p_cus, ble_evt_t const * p_ble_evt)
 }
 
 
-void ble_cus_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context)
+void ble_cus_on_ble_evt(ble_evt_t * p_ble_evt, ble_os_t * p_cus)
+//void ble_cus_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context)
 {
-    ble_os_t * p_cus = (ble_os_t *) p_context;
+    //ble_os_t * p_cus = (ble_os_t *) p_context;
     
     //NRF_LOG_INFO("BLE event received. Event type = %d\r\n", p_ble_evt->header.evt_id); 
     if (p_cus == NULL || p_ble_evt == NULL)

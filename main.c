@@ -91,7 +91,6 @@
 #define TIMER_INTERVAL           				APP_TIMER_TICKS(1000, APP_TIMER_PRESCALER)
 
 static ble_os_t m_cus;
-//BLE_CUS_DEF(m_cus); 
 
 APP_TIMER_DEF(m_app_timer_id);
 

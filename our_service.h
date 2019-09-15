@@ -5,17 +5,6 @@
 #include "ble.h"
 #include "ble_srv_common.h"
 
-/**@brief   Macro for defining a ble_hrs instance.
- *
- * @param   _name   Name of the instance.
- * @hideinitializer
- */
-#define BLE_CUS_DEF(_name)                                                                          \
-static ble_os_t _name;                                                                             \
-NRF_SDH_BLE_OBSERVER(_name ## _obs,                                                                 \
-                     BLE_HRS_BLE_OBSERVER_PRIO,                                                     \
-                     ble_cus_on_ble_evt, &_name)
-
 
 #define BLE_UUID_OUR_BASE_UUID              {0x23, 0xD1, 0x13, 0xEF, 0x5F, 0x78, 0x23, 0x15, 0xDE, 0xEF, 0x12, 0x12, 0x00, 0x00, 0x00, 0x00} // 128-bit base UUID
 #define BLE_UUID_OUR_SERVICE                0xABCD // Just a random, but recognizable value
@@ -75,7 +64,8 @@ typedef struct ble_os_s
  * @param[in]   p_ble_evt  Event received from the BLE stack.
  */
 //void ble_our_service_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context);
-void ble_cus_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context);
+void ble_cus_on_ble_evt(ble_evt_t * p_ble_evt, ble_os_t * p_cus);
+//void ble_cus_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context);
 
 /**@brief Function for initializing our new service.
  *
