@@ -5,58 +5,6 @@
 #include "app_error.h"
 #include "SEGGER_RTT.h"
 
-/**@brief Function for adding our new characterstic to "Our service" that we initiated in the previous tutorial. 
- *
- * @param[in]   p_our_service        Our Service structure.
- *
- */
-static uint32_t our_char_add(ble_os_t * p_our_service)
-{
-    // OUR_JOB: Step 2.A, Add a custom characteristic UUID
-
-
-    
-    // OUR_JOB: Step 2.F Add read/write properties to our characteristic
-    ble_gatts_char_md_t char_md;
-    memset(&char_md, 0, sizeof(char_md));
-
-
-
-
-    
-    // OUR_JOB: Step 3.A, Configuring Client Characteristic Configuration Descriptor metadata and add to char_md structure
-    ble_gatts_attr_md_t cccd_md;
-    memset(&cccd_md, 0, sizeof(cccd_md));
-
-
-   
-    
-    // OUR_JOB: Step 2.B, Configure the attribute metadata
-    ble_gatts_attr_md_t attr_md;
-    memset(&attr_md, 0, sizeof(attr_md));  
-
-	
-    
-    
-    // OUR_JOB: Step 2.G, Set read/write security levels to our characteristic
-
-    
-    // OUR_JOB: Step 2.C, Configure the characteristic value attribute
-    ble_gatts_attr_t    attr_char_value;
-    memset(&attr_char_value, 0, sizeof(attr_char_value));
-
-
-
-    
-    // OUR_JOB: Step 2.H, Set characteristic length in number of bytes
-
-
-    // OUR_JOB: Step 2.E, Add our new characteristic to the service
-
-
-    return NRF_SUCCESS;
-}
-
 
 /**@brief Function for handling the Connect event.
  *
@@ -267,8 +215,10 @@ uint32_t  our_service_init(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
     // OUR_JOB: Declare 16-bit service and 128-bit base UUIDs and add them to the BLE stack
     ble_uuid_t        service_uuid;
     ble_uuid128_t     base_uuid = BLE_UUID_OUR_BASE_UUID;
-    service_uuid.uuid = BLE_UUID_OUR_SERVICE;
-    err_code = sd_ble_uuid_vs_add(&base_uuid, &service_uuid.type);
+    
+		err_code =  sd_ble_uuid_vs_add(&base_uuid, &p_cus->uuid_type);
+		//err_code = sd_ble_uuid_vs_add(&base_uuid, &service_uuid.type);
+		
 		/*
 		err_code =  sd_ble_uuid_vs_add(&base_uuid, &p_cus->uuid_type);
     VERIFY_SUCCESS(err_code);
@@ -276,6 +226,9 @@ uint32_t  our_service_init(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
     service_uuid.uuid = BLE_UUID_OUR_SERVICE;
 		*/
     APP_ERROR_CHECK(err_code);    
+		
+		service_uuid.type = p_cus->uuid_type;
+    service_uuid.uuid = BLE_UUID_OUR_SERVICE;
     
     // OUR_JOB: Add our service
     err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY,
@@ -292,6 +245,8 @@ uint32_t  our_service_init(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
 	// OUR_JOB: Call the function our_char_add() to add our new characteristic to the service. 
     err_code = custom_value_char_add(p_cus, p_cus_init);
 		APP_ERROR_CHECK(err_code);
+		
+		return NRF_SUCCESS;
 }
 
 //void our_characteristic_update(ble_os_t *p_cus, uint8_t *value)

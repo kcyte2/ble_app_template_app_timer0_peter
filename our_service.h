@@ -88,5 +88,4 @@ uint32_t our_service_init(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init);
 //void our_characteristic_update(ble_os_t *p_our_service, uint8_t *value);
 uint32_t ble_cus_custom_value_update(ble_os_t * p_cus, uint8_t custom_value);
 
-
 #endif  /* _ OUR_SERVICE_H__ */

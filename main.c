@@ -94,10 +94,7 @@ static ble_os_t m_cus;
 
 APP_TIMER_DEF(m_app_timer_id);
 
-static ble_gap_sec_params_t             m_sec_params;                               /**< Security requirements for this application. */
 static uint16_t                         m_conn_handle = BLE_CONN_HANDLE_INVALID;    /**< Handle of the current connection. */
-
-
 
 static uint8_t m_custom_value = 0;
 static uint8_t notif_bool = 0;
@@ -656,11 +653,13 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
      * Remember to call ble_conn_state_on_ble_evt before calling any ble_conns_state_* functions. */
     ble_conn_state_on_ble_evt(p_ble_evt);
     pm_on_ble_evt(p_ble_evt);
+	
+		ble_cus_on_ble_evt(p_ble_evt, &m_cus);
+	
     ble_conn_params_on_ble_evt(p_ble_evt);
     bsp_btn_ble_on_ble_evt(p_ble_evt);
     on_ble_evt(p_ble_evt);
     ble_advertising_on_ble_evt(p_ble_evt);
-		ble_cus_on_ble_evt(p_ble_evt, &m_cus);
     /*YOUR_JOB add calls to _on_ble_evt functions from each service your application is using
        ble_xxs_on_ble_evt(&m_xxs, p_ble_evt);
        ble_yys_on_ble_evt(&m_yys, p_ble_evt);
