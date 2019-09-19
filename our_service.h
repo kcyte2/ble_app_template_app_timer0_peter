@@ -8,6 +8,7 @@
 
 #define BLE_UUID_OUR_BASE_UUID              {0x23, 0xD1, 0x13, 0xEF, 0x5F, 0x78, 0x23, 0x15, 0xDE, 0xEF, 0x12, 0x12, 0x00, 0x00, 0x00, 0x00} // 128-bit base UUID
 #define BLE_UUID_OUR_SERVICE                0xABCD // Just a random, but recognizable value
+#define BLE_UUID_OUR_SERVICE2								0xCDEF
 #define BLE_UUID_OUR_CHARACTERISTC_UUID          0x1400
 
 /**@brief Custom Service event type. */
@@ -73,6 +74,7 @@ void ble_cus_on_ble_evt(ble_evt_t * p_ble_evt, ble_os_t * p_cus);
  */
 //void our_service_init(ble_os_t * p_our_service);
 uint32_t our_service_init(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init);
+uint32_t our_service_init2(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init);
 
 /**@brief Function for updating the custom value.
  *

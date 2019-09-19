@@ -91,6 +91,7 @@
 #define TIMER_INTERVAL           				APP_TIMER_TICKS(1000, APP_TIMER_PRESCALER)
 
 static ble_os_t m_cus;
+static ble_os_t m_cus2;
 
 APP_TIMER_DEF(m_app_timer_id);
 
@@ -430,6 +431,18 @@ static void services_init(void)
 		 
 			//our_service_init (&m_our_service, & cus_init);
 			our_service_init(&m_cus, &cus_init);
+			
+			ble_cus_init_t      cus_init2 = {0};
+			
+			// Initialize CUS Service init structure to zero.
+      cus_init2.evt_handler                = on_cus_evt;
+			
+			BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init2.custom_value_char_attr_md.cccd_write_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init2.custom_value_char_attr_md.read_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init2.custom_value_char_attr_md.write_perm);
+		 
+			//our_service_init (&m_our_service, & cus_init);
+			our_service_init2(&m_cus2, &cus_init2);
 		
 
 }
@@ -655,6 +668,8 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
     pm_on_ble_evt(p_ble_evt);
 	
 		ble_cus_on_ble_evt(p_ble_evt, &m_cus);
+		ble_cus_on_ble_evt(p_ble_evt, &m_cus2);
+
 	
     ble_conn_params_on_ble_evt(p_ble_evt);
     bsp_btn_ble_on_ble_evt(p_ble_evt);
@@ -814,7 +829,11 @@ static ble_uuid_t m_adv_uuids[] =
     {
         BLE_UUID_OUR_SERVICE,
         BLE_UUID_TYPE_VENDOR_BEGIN
-    }
+    },
+		{
+			BLE_UUID_OUR_SERVICE2,
+			BLE_UUID_TYPE_VENDOR_BEGIN
+		}
 };
 
 /**@brief Function for initializing the Advertising functionality.
@@ -857,7 +876,7 @@ static void advertising_init(void)
     advdata.name_type               = BLE_ADVDATA_FULL_NAME;
     advdata.include_appearance      = true;
     advdata.flags                   = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
-    advdata.uuids_complete.uuid_cnt = sizeof(m_adv_uuids) / sizeof(m_adv_uuids[0]);
+    advdata.uuids_complete.uuid_cnt = 1;//sizeof(m_adv_uuids) / sizeof(m_adv_uuids[0]);
     advdata.uuids_complete.p_uuids  = m_adv_uuids;
 
     memset(&options, 0, sizeof(options));
