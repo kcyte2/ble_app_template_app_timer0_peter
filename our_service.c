@@ -245,7 +245,7 @@ static uint32_t custom_value_char_add2(ble_os_t * p_cus, const ble_cus_init_t * 
 
     err_code = sd_ble_gatts_characteristic_add(p_cus->service_handle, &char_md,
                                                &attr_char_value,
-                                               &p_cus->custom_value_handles);
+                                               &p_cus->custom_value_handles2);
     if (err_code != NRF_SUCCESS)
     {
         return err_code;
