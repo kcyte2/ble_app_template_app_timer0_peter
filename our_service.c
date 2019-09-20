@@ -376,7 +376,9 @@ uint32_t  our_service_init2(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init
 }
 
 //void our_characteristic_update(ble_os_t *p_cus, uint8_t *value)
-uint32_t ble_cus_custom_value_update(ble_os_t * p_cus, uint8_t custom_value)
+
+//uint32_t ble_cus_custom_value_update(ble_os_t * p_cus, uint8_t custom_value)
+uint32_t ble_cus_custom_value_update(ble_os_t * p_cus, uint8_t custom_value, ble_gatts_char_handles_t * p_cus_char)
 {
     // OUR_JOB: Step 3.E, Update characteristic value
 	if (p_cus == NULL)
@@ -396,7 +398,8 @@ uint32_t ble_cus_custom_value_update(ble_os_t * p_cus, uint8_t custom_value)
 
     // Update database.
     err_code = sd_ble_gatts_value_set(p_cus->conn_handle,
-                                      p_cus->custom_value_handles.value_handle,
+                                      //p_cus->custom_value_handles.value_handle,
+																			p_cus_char->value_handle,
                                       &gatts_value);
     if (err_code != NRF_SUCCESS)
     {
@@ -410,7 +413,8 @@ uint32_t ble_cus_custom_value_update(ble_os_t * p_cus, uint8_t custom_value)
 
         memset(&hvx_params, 0, sizeof(hvx_params));
 
-        hvx_params.handle = p_cus->custom_value_handles.value_handle;
+        //hvx_params.handle = p_cus->custom_value_handles.value_handle;
+				hvx_params.handle = p_cus_char->value_handle;
         hvx_params.type   = BLE_GATT_HVX_NOTIFICATION;
         hvx_params.offset = gatts_value.offset;
         hvx_params.p_len  = &gatts_value.len;

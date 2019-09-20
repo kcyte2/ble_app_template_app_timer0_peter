@@ -269,7 +269,8 @@ static void timer_timeout_handler(void * p_context)
     m_custom_value++;
 		
 		if(notif_bool == 1){
-       err_code = ble_cus_custom_value_update(&m_cus, m_custom_value);
+       //err_code = ble_cus_custom_value_update(&m_cus, m_custom_value);
+			err_code = ble_cus_custom_value_update(&m_cus, m_custom_value, &m_cus.custom_value_handles);
     }
     
 }

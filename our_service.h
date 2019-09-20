@@ -93,6 +93,8 @@ uint32_t ble_cus_char2_init(ble_os_t * p_cus, const ble_cus_init_t * p_cus_init)
  *
  * @return      NRF_SUCCESS on success, otherwise an error code. */
 //void our_characteristic_update(ble_os_t *p_our_service, uint8_t *value);
-uint32_t ble_cus_custom_value_update(ble_os_t * p_cus, uint8_t custom_value);
+
+//uint32_t ble_cus_custom_value_update(ble_os_t * p_cus, uint8_t custom_value);
+uint32_t ble_cus_custom_value_update(ble_os_t * p_cus, uint8_t custom_value, ble_gatts_char_handles_t * p_cus_char);
 
 #endif  /* _ OUR_SERVICE_H__ */
