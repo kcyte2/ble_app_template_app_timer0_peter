@@ -10,6 +10,7 @@
 #define BLE_UUID_OUR_SERVICE                0xABCD // Just a random, but recognizable value
 #define BLE_UUID_OUR_SERVICE2								0xCDEF
 #define BLE_UUID_OUR_CHARACTERISTC_UUID          0x1400
+#define BLE_UUID_OUR_CHARACTERISTC_UUID2 					0x1500
 
 /**@brief Custom Service event type. */
 typedef enum
@@ -75,6 +76,8 @@ void ble_cus_on_ble_evt(ble_evt_t * p_ble_evt, ble_os_t * p_cus);
 //void our_service_init(ble_os_t * p_our_service);
 uint32_t our_service_init(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init);
 uint32_t our_service_init2(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init);
+
+uint32_t ble_cus_char2_init(ble_os_t * p_cus, const ble_cus_init_t * p_cus_init);
 
 /**@brief Function for updating the custom value.
  *

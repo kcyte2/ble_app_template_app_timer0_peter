@@ -432,6 +432,8 @@ static void services_init(void)
 			//our_service_init (&m_our_service, & cus_init);
 			our_service_init(&m_cus, &cus_init);
 			
+			ble_cus_char2_init(&m_cus, &cus_init);
+			
 			ble_cus_init_t      cus_init2 = {0};
 			
 			// Initialize CUS Service init structure to zero.
