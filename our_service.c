@@ -6,7 +6,51 @@
 #include "SEGGER_RTT.h"
 #include "fstorage.h"
 #include "fds.h"
+#include "nrf_delay.h"
 
+#define FILE_ID     0x1111
+#define REC_KEY     0x2222
+
+static uint8_t five = 5;
+static uint8_t six = 6;
+__ALIGN(4) static uint8_t eight = 8;
+
+static fds_record_chunk_t const m_dummy_record_chunk =
+{
+    .p_data = &eight,
+    .length_words = (sizeof(eight) + 3) / sizeof(uint32_t)
+};
+static fds_record_t const m_dummy_record =
+{
+    .file_id = FILE_ID,
+    .key = REC_KEY,
+    .data.p_chunks = &m_dummy_record_chunk,
+    .data.num_chunks  = 1
+};
+
+
+
+void flash_callback(fds_evt_t const * p_evt)
+{
+    switch (p_evt->id)
+    {
+        case FDS_EVT_INIT:
+            if(p_evt->result == FDS_SUCCESS)
+            {               
+            }
+            break;
+            
+        case FDS_EVT_WRITE:
+            if (p_evt->result == FDS_SUCCESS)
+            {
+            }
+        case FDS_EVT_UPDATE:
+        case FDS_EVT_DEL_RECORD:
+        case FDS_EVT_DEL_FILE:
+        case FDS_EVT_GC:
+          break;
+    }
+}
 /**@brief Function for handling the Connect event.
  *
  * @param[in]   p_cus       Custom Service structure.
@@ -194,6 +238,13 @@ static uint32_t custom_value_char_add(ble_os_t * p_cus, const ble_cus_init_t * p
 
 static uint32_t custom_value_char_add2(ble_os_t * p_cus, const ble_cus_init_t * p_cus_init)
 {
+		fds_record_desc_t desc0 = {0};
+		ret_code_t ret = fds_record_write(&desc0, &m_dummy_record);
+		if (ret != FDS_SUCCESS)
+		{
+		// Handle error.
+		}
+	
     uint32_t            err_code;
     ble_gatts_char_md_t char_md;
     ble_gatts_attr_md_t cccd_md;
@@ -235,7 +286,41 @@ static uint32_t custom_value_char_add2(ble_os_t * p_cus, const ble_cus_init_t * 
     attr_md.vlen       = 0;
 
     memset(&attr_char_value, 0, sizeof(attr_char_value));
-
+		
+		// add 1-2 second delay for fds_write to complete
+		nrf_delay_ms(1000);
+		fds_flash_record_t  flash_record;
+		fds_record_desc_t read_desc = {0};
+    fds_find_token_t  tok  = {0};
+		
+		ret_code_t rc_read;
+    rc_read = fds_record_find(FILE_ID, REC_KEY, &read_desc, &tok);
+		
+		if (rc_read == FDS_SUCCESS)
+    {
+       ret_code_t rc_open;
+			 /* Open the record and read its contents. */
+       rc_open = fds_record_open(&read_desc, &flash_record);
+			 if (rc_open == FDS_SUCCESS)
+        {
+					memcpy(&attr_char_value.p_value, &flash_record.p_data, sizeof(flash_record.p_data));
+        }
+			
+				if (rc_open != FDS_SUCCESS)
+        {
+					attr_char_value.p_value =  &five;
+        }
+			
+				if (fds_record_close(&read_desc) != FDS_SUCCESS)
+				{
+					// Handle error.
+				}
+		}
+		if (rc_read != FDS_SUCCESS)
+    {	
+			attr_char_value.p_value =  &six;
+		}
+			
     attr_char_value.p_uuid    = &ble_uuid;
     attr_char_value.p_attr_md = &attr_md;
     attr_char_value.init_len  = sizeof(uint8_t);
@@ -269,9 +354,15 @@ uint32_t  our_service_init(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
     {
         return NRF_ERROR_NULL;
     }
+		
+		ret_code_t ret = fds_register(flash_callback);
+		if (ret != FDS_SUCCESS)
+		{
+			// Registering of the FDS event handler has failed.
+		}
 
     uint32_t   err_code; // Variable to hold return codes from library and softdevice functions
-    
+   
 		  // Initialize service structure
     p_cus->evt_handler               = p_cus_init->evt_handler;
     p_cus->conn_handle               = BLE_CONN_HANDLE_INVALID;

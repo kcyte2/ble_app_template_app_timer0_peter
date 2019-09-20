@@ -31,6 +31,7 @@
 #include "fstorage.h"
 #include "fds.h"
 #include "peer_manager.h"
+#include "nrf_delay.h"
 
 #include "bsp.h"
 #include "bsp_btn_ble.h"
@@ -952,6 +953,11 @@ int main(void)
     if (erase_bonds == true)
     {
         NRF_LOG_INFO("Bonds erased!\r\n");
+    }
+		
+		while(m_custom_value <= 1)
+    {
+      power_manage();
     }
     gap_params_init();
 		services_init();
