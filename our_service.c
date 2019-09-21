@@ -7,18 +7,34 @@
 #include "fstorage.h"
 #include "fds.h"
 #include "nrf_delay.h"
+#include "app_timer.h"
+#include "nrf_log.h"
+#include "nrf_log_ctrl.h"
+#include "softdevice_handler.h"
+
 
 #define FILE_ID     0x1111
 #define REC_KEY     0x2222
 
+#define FDS_WRITE_INTERVAL               APP_TIMER_TICKS(2, 0)
+
+APP_TIMER_DEF(m_fds_write_timer_id);
+
+static uint8_t fds_write_wait_flag = 0;
+static void fds_write_timeout_handler(void * p_context)
+{
+    fds_write_wait_flag = 1;
+}
+
+
 static uint8_t five = 5;
 static uint8_t six = 6;
-__ALIGN(4) static uint8_t eight = 8;
+__ALIGN(4) static uint8_t nine = 9;
 
 static fds_record_chunk_t const m_dummy_record_chunk =
 {
-    .p_data = &eight,
-    .length_words = (sizeof(eight) + 3) / sizeof(uint32_t)
+    .p_data = &nine,
+    .length_words = (sizeof(nine) + 3) / sizeof(uint32_t)
 };
 static fds_record_t const m_dummy_record =
 {
@@ -288,7 +304,23 @@ static uint32_t custom_value_char_add2(ble_os_t * p_cus, const ble_cus_init_t * 
     memset(&attr_char_value, 0, sizeof(attr_char_value));
 		
 		// add 1-2 second delay for fds_write to complete
-		nrf_delay_ms(1000);
+		
+		app_timer_create(&m_fds_write_timer_id, APP_TIMER_MODE_SINGLE_SHOT, fds_write_timeout_handler);
+    app_timer_start(m_fds_write_timer_id, FDS_WRITE_INTERVAL, NULL);
+
+    while(fds_write_wait_flag != 1)
+    {
+      if (NRF_LOG_PROCESS() == false)
+      {
+        sd_app_evt_wait();
+      }
+    }
+
+    if(fds_write_wait_flag == 1){
+        fds_write_wait_flag = 0; 
+    }
+		
+		//nrf_delay_ms(1000);
 		fds_flash_record_t  flash_record;
 		fds_record_desc_t read_desc = {0};
     fds_find_token_t  tok  = {0};

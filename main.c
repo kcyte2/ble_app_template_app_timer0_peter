@@ -70,6 +70,8 @@
 #define APP_TIMER_PRESCALER             0                                           /**< Value of the RTC1 PRESCALER register. */
 #define APP_TIMER_OP_QUEUE_SIZE         4                                           /**< Size of timer operation queues. */
 
+#define APP_TIMER_KEEPS_RTC_ACTIVE      1 //sdk_config.h line 1705
+
 #define MIN_CONN_INTERVAL               MSEC_TO_UNITS(100, UNIT_1_25_MS)            /**< Minimum acceptable connection interval (0.1 seconds). */
 #define MAX_CONN_INTERVAL               MSEC_TO_UNITS(200, UNIT_1_25_MS)            /**< Maximum acceptable connection interval (0.2 second). */
 #define SLAVE_LATENCY                   0                                           /**< Slave latency. */
@@ -90,13 +92,17 @@
 
 #define DEAD_BEEF                       0xDEADBEEF                                  /**< Value used as error code on stack dump, can be used to identify stack location on stack unwind. */
 #define TIMER_INTERVAL           				APP_TIMER_TICKS(1000, APP_TIMER_PRESCALER)
+#define FDS_INIT_INTERVAL               APP_TIMER_TICKS(500, APP_TIMER_PRESCALER)
 
 static ble_os_t m_cus;
 static ble_os_t m_cus2;
 
+APP_TIMER_DEF(m_fds_init_timer_id);
 APP_TIMER_DEF(m_app_timer_id);
 
 static uint16_t                         m_conn_handle = BLE_CONN_HANDLE_INVALID;    /**< Handle of the current connection. */
+
+static uint8_t fds_init_wait_flag = 0;
 
 static uint8_t m_custom_value = 0;
 static uint8_t notif_bool = 0;
@@ -260,6 +266,10 @@ static void pm_evt_handler(pm_evt_t const * p_evt)
     }
 }
 
+static void fds_init_timeout_handler(void * p_context)
+{
+    fds_init_wait_flag = 1;
+}
 
 static void timer_timeout_handler(void * p_context)
 {
@@ -295,9 +305,11 @@ static void timers_init(void)
        uint32_t err_code;
        err_code = app_timer_create(&m_app_timer_id, APP_TIMER_MODE_REPEATED, timer_timeout_handler);
        APP_ERROR_CHECK(err_code); */
-			uint32_t err_code;
+			 uint32_t err_code;
        err_code = app_timer_create(&m_app_timer_id, APP_TIMER_MODE_REPEATED, timer_timeout_handler);
        APP_ERROR_CHECK(err_code); 
+	
+			 app_timer_create(&m_fds_init_timer_id, APP_TIMER_MODE_SINGLE_SHOT, fds_init_timeout_handler);
 }
 
 
@@ -518,6 +530,8 @@ static void application_timers_start(void)
 			 ret_code_t err_code;
        err_code = app_timer_start(m_app_timer_id, TIMER_INTERVAL, NULL);
        APP_ERROR_CHECK(err_code);
+				
+			 app_timer_start(m_fds_init_timer_id, FDS_INIT_INTERVAL, NULL);
 }
 
 
@@ -955,10 +969,20 @@ int main(void)
         NRF_LOG_INFO("Bonds erased!\r\n");
     }
 		
-		while(m_custom_value <= 1)
+		while(fds_init_wait_flag != 1)
     {
       power_manage();
     }
+
+    if(fds_init_wait_flag == 1){
+        fds_init_wait_flag = 0; 
+    }
+		
+		/*
+		while(m_custom_value <= 1)
+    {
+      power_manage();
+    } */
     gap_params_init();
 		services_init();
     advertising_init();
