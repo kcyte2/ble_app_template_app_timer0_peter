@@ -30,8 +30,15 @@ static void fds_write_timeout_handler(void * p_context)
 static uint8_t five = 5;
 static uint8_t six = 6;
 __ALIGN(4) static uint8_t nine = 9;
+__ALIGN(4) static uint8_t eleven = 11;
 
 static fds_record_chunk_t const m_dummy_record_chunk =
+{
+    .p_data = &eleven,
+    .length_words = (sizeof(eleven) + 3) / sizeof(uint32_t)
+};
+
+static fds_record_chunk_t const m_dummy_record_chunk2 =
 {
     .p_data = &nine,
     .length_words = (sizeof(nine) + 3) / sizeof(uint32_t)
@@ -41,6 +48,14 @@ static fds_record_t const m_dummy_record =
     .file_id = FILE_ID,
     .key = REC_KEY,
     .data.p_chunks = &m_dummy_record_chunk,
+    .data.num_chunks  = 1
+};
+
+static fds_record_t const m_dummy_record2 =
+{
+    .file_id = FILE_ID,
+    .key = REC_KEY,
+    .data.p_chunks = &m_dummy_record_chunk2,
     .data.num_chunks  = 1
 };
 
@@ -363,6 +378,9 @@ static uint32_t custom_value_char_add2(ble_os_t * p_cus, const ble_cus_init_t * 
     err_code = sd_ble_gatts_characteristic_add(p_cus->service_handle, &char_md,
                                                &attr_char_value,
                                                &p_cus->custom_value_handles2);
+		//ret_code_t rc_update;
+    //rc_update = fds_record_update(&read_desc, &m_dummy_record2);
+		
     if (err_code != NRF_SUCCESS)
     {
         return err_code;

@@ -92,7 +92,7 @@
 
 #define DEAD_BEEF                       0xDEADBEEF                                  /**< Value used as error code on stack dump, can be used to identify stack location on stack unwind. */
 #define TIMER_INTERVAL           				APP_TIMER_TICKS(1000, APP_TIMER_PRESCALER)
-#define FDS_INIT_INTERVAL               APP_TIMER_TICKS(500, APP_TIMER_PRESCALER)
+#define FDS_INIT_INTERVAL               APP_TIMER_TICKS(2000, APP_TIMER_PRESCALER)
 
 static ble_os_t m_cus;
 static ble_os_t m_cus2;
@@ -278,6 +278,12 @@ static void timer_timeout_handler(void * p_context)
     
     // Increment the value of m_custom_value before nortifing it.
     m_custom_value++;
+	
+		 /*
+    if(m_custom_value % 2 == 1){
+        //sensor_code();
+    }
+    */
 		
 		if(notif_bool == 1){
        //err_code = ble_cus_custom_value_update(&m_cus, m_custom_value);
