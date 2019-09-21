@@ -974,7 +974,7 @@ int main(void)
     {
         NRF_LOG_INFO("Bonds erased!\r\n");
     }
-		
+		/*
 		while(fds_init_wait_flag != 1)
     {
       power_manage();
@@ -982,13 +982,13 @@ int main(void)
 
     if(fds_init_wait_flag == 1){
         fds_init_wait_flag = 0; 
-    }
+    }*/
 		
-		/*
+		
 		while(m_custom_value <= 1)
     {
       power_manage();
-    } */
+    } 
     gap_params_init();
 		services_init();
     advertising_init();
