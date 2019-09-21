@@ -2591,6 +2591,11 @@
                 </FileArmAds>
               </FileOption>
             </File>
+            <File>
+              <FileName>app_timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\..\..\components\libraries\timer\app_timer.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -5534,6 +5539,11 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+            <File>
+              <FileName>app_timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\..\..\components\libraries\timer\app_timer.h</FilePath>
             </File>
           </Files>
         </Group>
