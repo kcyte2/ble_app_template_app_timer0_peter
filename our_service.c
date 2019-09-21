@@ -16,7 +16,7 @@
 #define FILE_ID     0x1111
 #define REC_KEY     0x2222
 
-#define FDS_WRITE_INTERVAL               APP_TIMER_TICKS(100, 0)
+#define FDS_WRITE_INTERVAL               APP_TIMER_TICKS(2000, 0)
 
 APP_TIMER_DEF(m_fds_write_timer_id);
 
