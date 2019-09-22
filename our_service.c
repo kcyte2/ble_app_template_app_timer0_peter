@@ -14,7 +14,7 @@
 
 
 #define FILE_ID     0x1111
-#define REC_KEY     0x2222
+#define REC_KEY     0x2223
 
 #define FDS_WRITE_INTERVAL               APP_TIMER_TICKS(2, 0)
 
