@@ -82,6 +82,14 @@ void flash_callback(fds_evt_t const * p_evt)
           break;
     }
 }
+
+static void power_manage(void)
+{
+    uint32_t err_code = sd_app_evt_wait();
+
+    APP_ERROR_CHECK(err_code);
+}
+
 /**@brief Function for handling the Connect event.
  *
  * @param[in]   p_cus       Custom Service structure.
@@ -326,10 +334,7 @@ static uint32_t custom_value_char_add2(ble_os_t * p_cus, const ble_cus_init_t * 
 
     while(fds_write_wait_flag != 1)
     {
-      if (NRF_LOG_PROCESS() == false)
-      {
-        sd_app_evt_wait();
-      }
+      power_manage();
     }
 
     if(fds_write_wait_flag == 1){
