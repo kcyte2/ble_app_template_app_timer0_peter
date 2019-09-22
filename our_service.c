@@ -14,9 +14,9 @@
 
 
 #define FILE_ID     0x1111
-#define REC_KEY     0x2224
+#define REC_KEY     0x2225
 
-#define FDS_WRITE_INTERVAL               APP_TIMER_TICKS(100, 0)
+#define FDS_WRITE_INTERVAL               APP_TIMER_TICKS(10, 0)
 
 APP_TIMER_DEF(m_fds_write_timer_id);
 
@@ -30,7 +30,7 @@ static void fds_write_timeout_handler(void * p_context)
 static uint8_t five = 5;
 static uint8_t six = 6;
 __ALIGN(4) static uint8_t nine = 9;
-__ALIGN(4) static uint8_t eleven = 9;
+__ALIGN(4) static uint8_t eleven = 7;
 
 static fds_record_chunk_t const m_dummy_record_chunk =
 {
