@@ -328,7 +328,7 @@ static uint32_t custom_value_char_add2(ble_os_t * p_cus, const ble_cus_init_t * 
 		
 		// add 1-2 second delay for fds_write to complete
 		
-		
+		/*
 		app_timer_create(&m_fds_write_timer_id, APP_TIMER_MODE_SINGLE_SHOT, fds_write_timeout_handler);
     app_timer_start(m_fds_write_timer_id, FDS_WRITE_INTERVAL, NULL);
 
@@ -339,9 +339,9 @@ static uint32_t custom_value_char_add2(ble_os_t * p_cus, const ble_cus_init_t * 
 
     if(fds_write_wait_flag == 1){
         fds_write_wait_flag = 0; 
-    }
+    }*/
 		
-		//nrf_delay_ms(1000);
+		nrf_delay_ms(1000);
 		fds_flash_record_t  flash_record;
 		fds_record_desc_t read_desc = {0};
     fds_find_token_t  tok  = {0};
