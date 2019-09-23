@@ -96,6 +96,13 @@
 
 static ble_os_t m_cus;
 static ble_os_t m_cus2;
+static ble_os_t m_cus3;
+static ble_os_t m_cus4;
+static ble_os_t m_cus5;
+static ble_os_t m_cus6;
+static ble_os_t m_cus7;
+static ble_os_t m_cus8;
+
 
 APP_TIMER_DEF(m_fds_init_timer_id);
 APP_TIMER_DEF(m_app_timer_id);
@@ -469,6 +476,90 @@ static void services_init(void)
 		 
 			//our_service_init (&m_our_service, & cus_init);
 			our_service_init2(&m_cus2, &cus_init2);
+	
+	//Third custom service init
+			
+			ble_cus_init_t      cus_init3 = {0};
+			
+			// Initialize CUS Service init structure to zero.
+      cus_init3.evt_handler                = on_cus_evt;
+			
+			BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init3.custom_value_char_attr_md.cccd_write_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init3.custom_value_char_attr_md.read_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init3.custom_value_char_attr_md.write_perm);
+		 
+			//our_service_init (&m_our_service, & cus_init);
+			our_service_init3(&m_cus3, &cus_init3);
+	
+	//Fourth custom service init
+			
+			ble_cus_init_t      cus_init4 = {0};
+			
+			// Initialize CUS Service init structure to zero.
+      cus_init4.evt_handler                = on_cus_evt;
+			
+			BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init4.custom_value_char_attr_md.cccd_write_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init4.custom_value_char_attr_md.read_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init4.custom_value_char_attr_md.write_perm);
+		 
+			//our_service_init (&m_our_service, & cus_init);
+			our_service_init4(&m_cus4, &cus_init4);
+	
+	//Fifth custom service init
+			
+			ble_cus_init_t      cus_init5 = {0};
+			
+			// Initialize CUS Service init structure to zero.
+      cus_init5.evt_handler                = on_cus_evt;
+			
+			BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init5.custom_value_char_attr_md.cccd_write_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init5.custom_value_char_attr_md.read_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init5.custom_value_char_attr_md.write_perm);
+		 
+			//our_service_init (&m_our_service, & cus_init);
+			our_service_init5(&m_cus5, &cus_init5);
+	
+	//Sixth custom service init
+			
+			ble_cus_init_t      cus_init6 = {0};
+			
+			// Initialize CUS Service init structure to zero.
+      cus_init6.evt_handler                = on_cus_evt;
+			
+			BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init6.custom_value_char_attr_md.cccd_write_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init6.custom_value_char_attr_md.read_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init6.custom_value_char_attr_md.write_perm);
+		 
+			//our_service_init (&m_our_service, & cus_init);
+			our_service_init6(&m_cus6, &cus_init6);
+	
+	//Seventh custom service init
+			
+			ble_cus_init_t      cus_init7 = {0};
+			
+			// Initialize CUS Service init structure to zero.
+      cus_init7.evt_handler                = on_cus_evt;
+			
+			BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init7.custom_value_char_attr_md.cccd_write_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init7.custom_value_char_attr_md.read_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init7.custom_value_char_attr_md.write_perm);
+		 
+			//our_service_init (&m_our_service, & cus_init);
+			our_service_init7(&m_cus7, &cus_init7);
+	
+	//Eighth custom service init
+			
+			ble_cus_init_t      cus_init8 = {0};
+			
+			// Initialize CUS Service init structure to zero.
+      cus_init8.evt_handler                = on_cus_evt;
+			
+			BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init8.custom_value_char_attr_md.cccd_write_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init8.custom_value_char_attr_md.read_perm);
+      BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cus_init8.custom_value_char_attr_md.write_perm);
+		 
+			//our_service_init (&m_our_service, & cus_init);
+			our_service_init8(&m_cus8, &cus_init8);
 		
 
 }
@@ -860,6 +951,30 @@ static ble_uuid_t m_adv_uuids[] =
     },
 		{
 			BLE_UUID_OUR_SERVICE2,
+			BLE_UUID_TYPE_VENDOR_BEGIN
+		},
+	{
+			BLE_UUID_OUR_SERVICE3,
+			BLE_UUID_TYPE_VENDOR_BEGIN
+		},
+	{
+			BLE_UUID_OUR_SERVICE4,
+			BLE_UUID_TYPE_VENDOR_BEGIN
+		},
+	{
+			BLE_UUID_OUR_SERVICE5,
+			BLE_UUID_TYPE_VENDOR_BEGIN
+		},
+	{
+			BLE_UUID_OUR_SERVICE6,
+			BLE_UUID_TYPE_VENDOR_BEGIN
+		},
+	{
+			BLE_UUID_OUR_SERVICE7,
+			BLE_UUID_TYPE_VENDOR_BEGIN
+		},
+	{
+			BLE_UUID_OUR_SERVICE8,
 			BLE_UUID_TYPE_VENDOR_BEGIN
 		}
 };
