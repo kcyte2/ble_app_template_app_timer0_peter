@@ -9,6 +9,14 @@
 #define BLE_UUID_OUR_BASE_UUID              {0x23, 0xD1, 0x13, 0xEF, 0x5F, 0x78, 0x23, 0x15, 0xDE, 0xEF, 0x12, 0x12, 0x00, 0x00, 0x00, 0x00} // 128-bit base UUID
 #define BLE_UUID_OUR_SERVICE                0xABCD // Just a random, but recognizable value
 #define BLE_UUID_OUR_SERVICE2								0xCDEF
+#define BLE_UUID_OUR_SERVICE3								0x3000
+#define BLE_UUID_OUR_SERVICE4								0x4000
+#define BLE_UUID_OUR_SERVICE5								0x5000
+#define BLE_UUID_OUR_SERVICE6								0x6000
+#define BLE_UUID_OUR_SERVICE7								0x7000
+#define BLE_UUID_OUR_SERVICE8								0x8000
+
+
 #define BLE_UUID_OUR_CHARACTERISTC_UUID          0x1400
 #define BLE_UUID_OUR_CHARACTERISTC_UUID2 					0x1500
 
@@ -45,8 +53,8 @@ typedef struct
  * @brief This structure contains various status information for our service. 
  * It only holds one entry now, but will be populated with more items as we go.
  * The name is based on the naming convention used in Nordic's SDKs. 
- * 'ble’ indicates that it is a Bluetooth Low Energy relevant structure and 
- * ‘os’ is short for Our Service). 
+ * 'bleâ€™ indicates that it is a Bluetooth Low Energy relevant structure and 
+ * â€˜osâ€™ is short for Our Service). 
  */
 typedef struct ble_os_s
 {
