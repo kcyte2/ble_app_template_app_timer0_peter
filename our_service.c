@@ -14,9 +14,9 @@
 
 
 #define FILE_ID     0x1111
-#define REC_KEY     0x2225
+#define REC_KEY     0x2222
 
-#define FDS_WRITE_INTERVAL               APP_TIMER_TICKS(10, 0)
+#define FDS_WRITE_INTERVAL               APP_TIMER_TICKS(5, 0)
 
 APP_TIMER_DEF(m_fds_write_timer_id);
 
@@ -30,7 +30,7 @@ static void fds_write_timeout_handler(void * p_context)
 static uint8_t five = 5;
 static uint8_t six = 6;
 __ALIGN(4) static uint8_t nine = 9;
-__ALIGN(4) static uint8_t eleven = 7;
+__ALIGN(4) static uint8_t eleven = 11;
 
 static fds_record_chunk_t const m_dummy_record_chunk =
 {
@@ -384,8 +384,116 @@ static uint32_t custom_value_char_add2(ble_os_t * p_cus, const ble_cus_init_t * 
     err_code = sd_ble_gatts_characteristic_add(p_cus->service_handle, &char_md,
                                                &attr_char_value,
                                                &p_cus->custom_value_handles2);
-		//ret_code_t rc_update;
-    //rc_update = fds_record_update(&read_desc, &m_dummy_record2);
+		ret_code_t rc_update;
+    rc_update = fds_record_update(&read_desc, &m_dummy_record2);
+		
+    if (err_code != NRF_SUCCESS)
+    {
+        return err_code;
+    }
+
+    return NRF_SUCCESS;
+}
+
+static uint32_t custom_value_char_add3(ble_os_t * p_cus, const ble_cus_init_t * p_cus_init)
+{
+    uint32_t            err_code;
+    ble_gatts_char_md_t char_md;
+    ble_gatts_attr_md_t cccd_md;
+    ble_gatts_attr_t    attr_char_value;
+    ble_uuid_t          ble_uuid;
+    ble_gatts_attr_md_t attr_md;
+
+    // Add Custom Value characteristic
+    memset(&cccd_md, 0, sizeof(cccd_md));
+
+    //  Read  operation on cccd should be possible without authentication.
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cccd_md.read_perm);
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cccd_md.write_perm);
+    
+    cccd_md.write_perm = p_cus_init->custom_value_char_attr_md.cccd_write_perm;
+    cccd_md.vloc       = BLE_GATTS_VLOC_STACK;
+
+    memset(&char_md, 0, sizeof(char_md));
+
+    char_md.char_props.read   = 1;
+    char_md.char_props.write  = 1;
+    char_md.char_props.notify = 1; 
+    char_md.p_char_user_desc  = NULL;
+    char_md.p_char_pf         = NULL;
+    char_md.p_user_desc_md    = NULL;
+    char_md.p_cccd_md         = &cccd_md; 
+    char_md.p_sccd_md         = NULL;
+		
+    ble_uuid.type = p_cus->uuid_type;
+    ble_uuid.uuid = BLE_UUID_OUR_CHARACTERISTC_UUID2;
+
+    memset(&attr_md, 0, sizeof(attr_md));
+
+    attr_md.read_perm  = p_cus_init->custom_value_char_attr_md.read_perm;
+    attr_md.write_perm = p_cus_init->custom_value_char_attr_md.write_perm;
+    attr_md.vloc       = BLE_GATTS_VLOC_STACK;
+    attr_md.rd_auth    = 0;
+    attr_md.wr_auth    = 0;
+    attr_md.vlen       = 0;
+
+    memset(&attr_char_value, 0, sizeof(attr_char_value));
+		
+		// add 1-2 second delay for fds_write to complete
+		app_timer_create(&m_fds_write_timer_id, APP_TIMER_MODE_SINGLE_SHOT, fds_write_timeout_handler);
+    app_timer_start(m_fds_write_timer_id, FDS_WRITE_INTERVAL, NULL);
+
+    while(fds_write_wait_flag != 1)
+    {
+      power_manage();
+    }
+
+    if(fds_write_wait_flag == 1){
+        fds_write_wait_flag = 0; 
+    }
+		
+		fds_flash_record_t  flash_record;
+		fds_record_desc_t read_desc = {0};
+    fds_find_token_t  tok  = {0};
+		
+		ret_code_t rc_read;
+    rc_read = fds_record_find(FILE_ID, REC_KEY, &read_desc, &tok);
+		
+		if (rc_read == FDS_SUCCESS)
+    {
+       ret_code_t rc_open;
+			 /* Open the record and read its contents. */
+       rc_open = fds_record_open(&read_desc, &flash_record);
+			 if (rc_open == FDS_SUCCESS)
+        {
+					memcpy(&attr_char_value.p_value, &flash_record.p_data, sizeof(flash_record.p_data));
+        }
+			
+				if (rc_open != FDS_SUCCESS)
+        {
+					attr_char_value.p_value =  &five;
+        }
+			
+				if (fds_record_close(&read_desc) != FDS_SUCCESS)
+				{
+					// Handle error.
+				}
+		}
+		if (rc_read != FDS_SUCCESS)
+    {	
+			attr_char_value.p_value =  &six;
+		}
+			
+    attr_char_value.p_uuid    = &ble_uuid;
+    attr_char_value.p_attr_md = &attr_md;
+    attr_char_value.init_len  = sizeof(uint8_t);
+    attr_char_value.init_offs = 0;
+    attr_char_value.max_len   = sizeof(uint8_t);
+   
+
+    err_code = sd_ble_gatts_characteristic_add(p_cus->service_handle, &char_md,
+                                               &attr_char_value,
+                                               &p_cus->custom_value_handles3);
 		
     if (err_code != NRF_SUCCESS)
     {
@@ -469,6 +577,17 @@ uint32_t ble_cus_char2_init(ble_os_t * p_cus, const ble_cus_init_t * p_cus_init)
 
     // Add Custom Value characteristic
     return custom_value_char_add2(p_cus, p_cus_init);
+}
+
+uint32_t ble_cus_char3_init(ble_os_t * p_cus, const ble_cus_init_t * p_cus_init)
+{
+    if (p_cus == NULL || p_cus_init == NULL)
+    {
+        return NRF_ERROR_NULL;
+    }
+
+    // Add Custom Value characteristic
+    return custom_value_char_add3(p_cus, p_cus_init);
 }
 
 uint32_t  our_service_init2(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
