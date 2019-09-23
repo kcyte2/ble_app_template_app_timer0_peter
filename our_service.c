@@ -277,12 +277,14 @@ static uint32_t custom_value_char_add(ble_os_t * p_cus, const ble_cus_init_t * p
 
 static uint32_t custom_value_char_add2(ble_os_t * p_cus, const ble_cus_init_t * p_cus_init)
 {
+		/*
 		fds_record_desc_t desc0 = {0};
 		ret_code_t ret = fds_record_write(&desc0, &m_dummy_record);
 		if (ret != FDS_SUCCESS)
 		{
 		// Handle error.
 		}
+		*/
 	
     uint32_t            err_code;
     ble_gatts_char_md_t char_md;
@@ -610,13 +612,7 @@ uint32_t  our_service_init2(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init
     
 		err_code =  sd_ble_uuid_vs_add(&base_uuid, &p_cus->uuid_type);
 		//err_code = sd_ble_uuid_vs_add(&base_uuid, &service_uuid.type);
-		
-		/*
-		err_code =  sd_ble_uuid_vs_add(&base_uuid, &p_cus->uuid_type);
-    VERIFY_SUCCESS(err_code);
-		service_uuid.type = p_cus->uuid_type;
-    service_uuid.uuid = BLE_UUID_OUR_SERVICE;
-		*/
+
     APP_ERROR_CHECK(err_code);    
 		
 		service_uuid.type = p_cus->uuid_type;
@@ -627,12 +623,234 @@ uint32_t  our_service_init2(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init
                                         &service_uuid,
                                         &p_cus->service_handle);
     APP_ERROR_CHECK(err_code);
-/*
-    SEGGER_RTT_WriteString(0, "Executing our_service_init().\n");
-    SEGGER_RTT_printf(0, "Service UUID: 0x%#04x\n", service_uuid.uuid);
-    SEGGER_RTT_printf(0, "Service UUID type: 0x%#02x\n", service_uuid.type);
-    SEGGER_RTT_printf(0, "Service handle: 0x%#04x\n", p_our_service->service_handle
-	*/
+	
+	// OUR_JOB: Call the function our_char_add() to add our new characteristic to the service. 
+    err_code = custom_value_char_add(p_cus, p_cus_init);
+		APP_ERROR_CHECK(err_code);
+		
+		return NRF_SUCCESS;
+}
+
+uint32_t  our_service_init3(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
+{
+	
+		if (p_cus == NULL || p_cus_init == NULL)
+    {
+        return NRF_ERROR_NULL;
+    }
+
+    uint32_t   err_code; // Variable to hold return codes from library and softdevice functions
+    
+		  // Initialize service structure
+    p_cus->evt_handler               = p_cus_init->evt_handler;
+    p_cus->conn_handle               = BLE_CONN_HANDLE_INVALID;
+
+    // OUR_JOB: Declare 16-bit service and 128-bit base UUIDs and add them to the BLE stack
+    ble_uuid_t        service_uuid;
+    ble_uuid128_t     base_uuid = BLE_UUID_OUR_BASE_UUID;
+    
+		err_code =  sd_ble_uuid_vs_add(&base_uuid, &p_cus->uuid_type);
+
+    APP_ERROR_CHECK(err_code);    
+		
+		service_uuid.type = p_cus->uuid_type;
+    service_uuid.uuid = BLE_UUID_OUR_SERVICE3;
+    
+    // OUR_JOB: Add our service
+    err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY,
+                                        &service_uuid,
+                                        &p_cus->service_handle);
+    APP_ERROR_CHECK(err_code);
+	
+	// OUR_JOB: Call the function our_char_add() to add our new characteristic to the service. 
+    err_code = custom_value_char_add(p_cus, p_cus_init);
+		APP_ERROR_CHECK(err_code);
+		
+		return NRF_SUCCESS;
+}
+
+uint32_t  our_service_init4(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
+{
+	
+		if (p_cus == NULL || p_cus_init == NULL)
+    {
+        return NRF_ERROR_NULL;
+    }
+
+    uint32_t   err_code; // Variable to hold return codes from library and softdevice functions
+    
+		  // Initialize service structure
+    p_cus->evt_handler               = p_cus_init->evt_handler;
+    p_cus->conn_handle               = BLE_CONN_HANDLE_INVALID;
+
+    // OUR_JOB: Declare 16-bit service and 128-bit base UUIDs and add them to the BLE stack
+    ble_uuid_t        service_uuid;
+    ble_uuid128_t     base_uuid = BLE_UUID_OUR_BASE_UUID;
+    
+		err_code =  sd_ble_uuid_vs_add(&base_uuid, &p_cus->uuid_type);
+
+    APP_ERROR_CHECK(err_code);    
+		
+		service_uuid.type = p_cus->uuid_type;
+    service_uuid.uuid = BLE_UUID_OUR_SERVICE4;
+    
+    // OUR_JOB: Add our service
+    err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY,
+                                        &service_uuid,
+                                        &p_cus->service_handle);
+    APP_ERROR_CHECK(err_code);
+	
+	// OUR_JOB: Call the function our_char_add() to add our new characteristic to the service. 
+    err_code = custom_value_char_add(p_cus, p_cus_init);
+		APP_ERROR_CHECK(err_code);
+		
+		return NRF_SUCCESS;
+}
+
+uint32_t  our_service_init5(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
+{
+	
+		if (p_cus == NULL || p_cus_init == NULL)
+    {
+        return NRF_ERROR_NULL;
+    }
+
+    uint32_t   err_code; // Variable to hold return codes from library and softdevice functions
+    
+		  // Initialize service structure
+    p_cus->evt_handler               = p_cus_init->evt_handler;
+    p_cus->conn_handle               = BLE_CONN_HANDLE_INVALID;
+
+    // OUR_JOB: Declare 16-bit service and 128-bit base UUIDs and add them to the BLE stack
+    ble_uuid_t        service_uuid;
+    ble_uuid128_t     base_uuid = BLE_UUID_OUR_BASE_UUID;
+    
+		err_code =  sd_ble_uuid_vs_add(&base_uuid, &p_cus->uuid_type);
+
+    APP_ERROR_CHECK(err_code);    
+		
+		service_uuid.type = p_cus->uuid_type;
+    service_uuid.uuid = BLE_UUID_OUR_SERVICE5;
+    
+    // OUR_JOB: Add our service
+    err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY,
+                                        &service_uuid,
+                                        &p_cus->service_handle);
+    APP_ERROR_CHECK(err_code);
+	
+	// OUR_JOB: Call the function our_char_add() to add our new characteristic to the service. 
+    err_code = custom_value_char_add(p_cus, p_cus_init);
+		APP_ERROR_CHECK(err_code);
+		
+		return NRF_SUCCESS;
+}
+
+uint32_t  our_service_init6(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
+{
+	
+		if (p_cus == NULL || p_cus_init == NULL)
+    {
+        return NRF_ERROR_NULL;
+    }
+
+    uint32_t   err_code; // Variable to hold return codes from library and softdevice functions
+    
+		  // Initialize service structure
+    p_cus->evt_handler               = p_cus_init->evt_handler;
+    p_cus->conn_handle               = BLE_CONN_HANDLE_INVALID;
+
+    // OUR_JOB: Declare 16-bit service and 128-bit base UUIDs and add them to the BLE stack
+    ble_uuid_t        service_uuid;
+    ble_uuid128_t     base_uuid = BLE_UUID_OUR_BASE_UUID;
+    
+		err_code =  sd_ble_uuid_vs_add(&base_uuid, &p_cus->uuid_type);
+
+    APP_ERROR_CHECK(err_code);    
+		
+		service_uuid.type = p_cus->uuid_type;
+    service_uuid.uuid = BLE_UUID_OUR_SERVICE6;
+    
+    // OUR_JOB: Add our service
+    err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY,
+                                        &service_uuid,
+                                        &p_cus->service_handle);
+    APP_ERROR_CHECK(err_code);
+	
+	// OUR_JOB: Call the function our_char_add() to add our new characteristic to the service. 
+    err_code = custom_value_char_add(p_cus, p_cus_init);
+		APP_ERROR_CHECK(err_code);
+		
+		return NRF_SUCCESS;
+}
+
+uint32_t  our_service_init7(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
+{
+	
+		if (p_cus == NULL || p_cus_init == NULL)
+    {
+        return NRF_ERROR_NULL;
+    }
+
+    uint32_t   err_code; // Variable to hold return codes from library and softdevice functions
+    
+		  // Initialize service structure
+    p_cus->evt_handler               = p_cus_init->evt_handler;
+    p_cus->conn_handle               = BLE_CONN_HANDLE_INVALID;
+
+    // OUR_JOB: Declare 16-bit service and 128-bit base UUIDs and add them to the BLE stack
+    ble_uuid_t        service_uuid;
+    ble_uuid128_t     base_uuid = BLE_UUID_OUR_BASE_UUID;
+    
+		err_code =  sd_ble_uuid_vs_add(&base_uuid, &p_cus->uuid_type);
+
+    APP_ERROR_CHECK(err_code);    
+		
+		service_uuid.type = p_cus->uuid_type;
+    service_uuid.uuid = BLE_UUID_OUR_SERVICE7;
+    
+    // OUR_JOB: Add our service
+    err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY,
+                                        &service_uuid,
+                                        &p_cus->service_handle);
+    APP_ERROR_CHECK(err_code);
+	
+	// OUR_JOB: Call the function our_char_add() to add our new characteristic to the service. 
+    err_code = custom_value_char_add(p_cus, p_cus_init);
+		APP_ERROR_CHECK(err_code);
+		
+		return NRF_SUCCESS;
+}
+
+uint32_t  our_service_init8(ble_os_t * p_cus,  const ble_cus_init_t * p_cus_init)
+{
+	
+		if (p_cus == NULL || p_cus_init == NULL)
+    {
+        return NRF_ERROR_NULL;
+    }
+
+    uint32_t   err_code; // Variable to hold return codes from library and softdevice functions
+    
+		  // Initialize service structure
+    p_cus->evt_handler               = p_cus_init->evt_handler;
+    p_cus->conn_handle               = BLE_CONN_HANDLE_INVALID;
+
+    // OUR_JOB: Declare 16-bit service and 128-bit base UUIDs and add them to the BLE stack
+    ble_uuid_t        service_uuid;
+    ble_uuid128_t     base_uuid = BLE_UUID_OUR_BASE_UUID;
+    
+		err_code =  sd_ble_uuid_vs_add(&base_uuid, &p_cus->uuid_type);
+
+    APP_ERROR_CHECK(err_code);    
+		
+		service_uuid.type = p_cus->uuid_type;
+    service_uuid.uuid = BLE_UUID_OUR_SERVICE8;
+    
+    // OUR_JOB: Add our service
+    err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY,
+                                        &service_uuid,
+                                        &p_cus->service_handle);
+    APP_ERROR_CHECK(err_code);
 	
 	// OUR_JOB: Call the function our_char_add() to add our new characteristic to the service. 
     err_code = custom_value_char_add(p_cus, p_cus_init);
