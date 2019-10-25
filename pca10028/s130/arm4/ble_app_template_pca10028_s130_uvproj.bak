@@ -2278,6 +2278,11 @@
                 </FileArmAds>
               </FileOption>
             </File>
+            <File>
+              <FileName>app_timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\..\..\components\libraries\timer\app_timer.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2728,7 +2733,7 @@
             <UsePdscDebugDescription>1</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>-1</TargetSelection>
+          <TargetSelection>4</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -4861,6 +4866,11 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+            <File>
+              <FileName>app_timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\..\..\components\libraries\timer\app_timer.h</FilePath>
             </File>
           </Files>
         </Group>

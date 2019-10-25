@@ -1,0 +1,63 @@
+Dependencies for Project 'ble_app_template_pca10028_s130', Target 'flash_s130_nrf51_2.0.1_softdevice': (DO NOT MODIFY !)
+F (..\..\..\main.c)(0x5DB36F8C)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\..\..\config\ble_app_template_pca10028_s130 -I..\..\..\config -I..\config --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-o ..\..\..\..\..\..\components\softdevice\s130\hex\main.o --omf_browse ..\..\..\..\..\..\components\softdevice\s130\hex\main.crf --depend ..\..\..\..\..\..\components\softdevice\s130\hex\main.d)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
+I (..\..\..\bandSensors.h)(0x5DB36F44)
+F (..\config\sdk_config.h)(0x5D868D35)()
+F (..\..\..\our_service.c)(0x5D89146C)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\..\..\config\ble_app_template_pca10028_s130 -I..\..\..\config -I..\config --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-o ..\..\..\..\..\..\components\softdevice\s130\hex\our_service.o --omf_browse ..\..\..\..\..\..\components\softdevice\s130\hex\our_service.crf --depend ..\..\..\..\..\..\components\softdevice\s130\hex\our_service.d)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
+I (..\..\..\our_service.h)(0x5D89146C)
+F (..\..\..\our_service.h)(0x5D89146C)()
+F (..\..\..\bandSensors.c)(0x5DB36DDB)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\..\..\config\ble_app_template_pca10028_s130 -I..\..\..\config -I..\config --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-o ..\..\..\..\..\..\components\softdevice\s130\hex\bandsensors.o --omf_browse ..\..\..\..\..\..\components\softdevice\s130\hex\bandsensors.crf --depend ..\..\..\..\..\..\components\softdevice\s130\hex\bandsensors.d)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
+F (..\..\..\bandSensors.h)(0x5DB36F44)()
+F (..\..\..\..\..\bsp\bsp.c)(0x5D46512A)()
+F (..\..\..\..\..\bsp\bsp_btn_ble.c)(0x5D46512B)()
+F (..\..\..\..\..\..\components\toolchain\arm\arm_startup_nrf51.s)(0x5D465035)()
+F (..\..\..\..\..\..\components\toolchain\system_nrf51.c)(0x5D465035)()
+F (..\..\..\license.txt)(0x5D7D6536)()
+F (..\..\..\..\..\..\components\ble\common\ble_advdata.c)(0x5D464FF7)()
+F (..\..\..\..\..\..\components\ble\ble_advertising\ble_advertising.c)(0x5D464FEB)()
+F (..\..\..\..\..\..\components\ble\common\ble_conn_params.c)(0x5D464FF7)()
+F (..\..\..\..\..\..\components\ble\common\ble_conn_state.c)(0x5D464FF7)()
+F (..\..\..\..\..\..\components\ble\common\ble_srv_common.c)(0x5D464FF7)()
+F (..\..\..\..\..\..\components\ble\peer_manager\gatt_cache_manager.c)(0x5D464FF8)()
+F (..\..\..\..\..\..\components\ble\peer_manager\gatts_cache_manager.c)(0x5D464FF8)()
+F (..\..\..\..\..\..\components\ble\peer_manager\id_manager.c)(0x5D464FF8)()
+F (..\..\..\..\..\..\components\ble\peer_manager\peer_data.c)(0x5D464FF8)()
+F (..\..\..\..\..\..\components\ble\peer_manager\peer_data_storage.c)(0x5D464FF9)()
+F (..\..\..\..\..\..\components\ble\peer_manager\peer_database.c)(0x5D464FF9)()
+F (..\..\..\..\..\..\components\ble\peer_manager\peer_id.c)(0x5D464FF9)()
+F (..\..\..\..\..\..\components\ble\peer_manager\peer_manager.c)(0x5D464FF9)()
+F (..\..\..\..\..\..\components\ble\peer_manager\pm_buffer.c)(0x5D464FFA)()
+F (..\..\..\..\..\..\components\ble\peer_manager\pm_mutex.c)(0x5D464FFA)()
+F (..\..\..\..\..\..\components\ble\peer_manager\security_dispatcher.c)(0x5D464FFA)()
+F (..\..\..\..\..\..\components\ble\peer_manager\security_manager.c)(0x5D464FFA)()
+F (..\..\..\..\..\..\components\drivers_nrf\clock\nrf_drv_clock.c)(0x5D464FFE)()
+F (..\..\..\..\..\..\components\drivers_nrf\common\nrf_drv_common.c)(0x5D464FFE)()
+F (..\..\..\..\..\..\components\drivers_nrf\gpiote\nrf_drv_gpiote.c)(0x5D464FFF)()
+F (..\..\..\..\..\..\components\drivers_nrf\uart\nrf_drv_uart.c)(0x5D465009)()
+F (..\..\..\..\..\..\components\libraries\button\app_button.c)(0x5D46500B)()
+F (..\..\..\..\..\..\components\libraries\util\app_error.c)(0x5D465017)()
+F (..\..\..\..\..\..\components\libraries\util\app_error_weak.c)(0x5D465017)()
+F (..\..\..\..\..\..\components\libraries\fifo\app_fifo.c)(0x5D46500E)()
+F (..\..\..\..\..\..\components\libraries\timer\app_timer.c)(0x5D465015)()
+F (..\..\..\..\..\..\components\libraries\util\app_util_platform.c)(0x5D465017)()
+F (..\..\..\..\..\..\components\libraries\crc16\crc16.c)(0x5D46500C)()
+F (..\..\..\..\..\..\components\libraries\fds\fds.c)(0x5D46500E)()
+F (..\..\..\..\..\..\components\libraries\fstorage\fstorage.c)(0x5D46500F)()
+F (..\..\..\..\..\..\components\libraries\hardfault\hardfault_implementation.c)(0x5D465010)()
+F (..\..\..\..\..\..\components\libraries\util\nrf_assert.c)(0x5D465018)()
+F (..\..\..\..\..\..\components\libraries\util\sdk_mapped_flags.c)(0x5D465018)()
+F (..\..\..\..\..\..\components\libraries\sensorsim\sensorsim.c)(0x5D465014)()
+F (..\..\..\..\..\..\components\libraries\timer\app_timer.h)(0x5D86B131)()
+F (..\..\..\..\..\..\components\libraries\log\src\nrf_log_backend_serial.c)(0x5D465012)()
+F (..\..\..\..\..\..\components\libraries\log\src\nrf_log_frontend.c)(0x5D465012)()
+F (..\..\..\..\..\..\external\segger_rtt\RTT_Syscalls_KEIL.c)(0x5D46521E)()
+F (..\..\..\..\..\..\external\segger_rtt\SEGGER_RTT.c)(0x5D46521F)()
+F (..\..\..\..\..\..\external\segger_rtt\SEGGER_RTT_printf.c)(0x5D46521F)()
+F (..\..\..\..\..\..\components\softdevice\common\softdevice_handler\softdevice_handler.c)(0x5D46502E)()
+F (..\..\..\..\..\..\components\softdevice\common\softdevice_handler\softdevice_handler.h)(0x5D46502E)()

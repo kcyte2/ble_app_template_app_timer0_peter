@@ -1,7 +1,7 @@
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\ble\common\ble_conn_state.c
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\ble\common\ble_conn_state.h
-.\_build\ble_conn_state.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
-.\_build\ble_conn_state.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\_build\ble_conn_state.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+.\_build\ble_conn_state.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\softdevice\s130\headers\ble.h
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\softdevice\s130\headers\ble_ranges.h
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\softdevice\s130\headers\ble_types.h
@@ -25,9 +25,9 @@
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\toolchain\system_nrf51.h
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\device\nrf51_bitfields.h
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\device\nrf51_deprecated.h
-.\_build\ble_conn_state.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\_build\ble_conn_state.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\libraries\util\app_error.h
-.\_build\ble_conn_state.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\_build\ble_conn_state.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\libraries\util\sdk_errors.h
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\libraries\util\nordic_common.h
 .\_build\ble_conn_state.o: ..\..\..\..\..\..\components\libraries\util\app_error_weak.h

@@ -1,8 +1,8 @@
 .\_build\ble_advdata.o: ..\..\..\..\..\..\components\ble\common\ble_advdata.c
 .\_build\ble_advdata.o: ..\..\..\..\..\..\components\ble\common\ble_advdata.h
-.\_build\ble_advdata.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-.\_build\ble_advdata.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
-.\_build\ble_advdata.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\_build\ble_advdata.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\_build\ble_advdata.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+.\_build\ble_advdata.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
 .\_build\ble_advdata.o: ..\..\..\..\..\..\components\softdevice\s130\headers\ble.h
 .\_build\ble_advdata.o: ..\..\..\..\..\..\components\softdevice\s130\headers\ble_ranges.h
 .\_build\ble_advdata.o: ..\..\..\..\..\..\components\softdevice\s130\headers\ble_types.h

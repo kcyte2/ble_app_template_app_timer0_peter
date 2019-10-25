@@ -2,4 +2,4 @@
 .\_build\segger_rtt.o: ..\..\..\..\..\..\external\segger_rtt\SEGGER_RTT.h
 .\_build\segger_rtt.o: ..\..\..\..\..\..\external\segger_rtt\SEGGER_RTT_Conf.h
 .\_build\segger_rtt.o: ..\..\..\..\..\..\components\device\compiler_abstraction.h
-.\_build\segger_rtt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\_build\segger_rtt.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h

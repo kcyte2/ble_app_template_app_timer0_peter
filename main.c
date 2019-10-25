@@ -16,6 +16,9 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "bandSensors.h"
+
+
 #include "nordic_common.h"
 #include "nrf.h"
 #include "app_error.h"
@@ -1072,7 +1075,34 @@ static void advertising_start(void)
     APP_ERROR_CHECK(err_code);
 }
 
+static void UART_init(){
+	uint32_t err_code_; // modified uint32_t err_code to uint32_t err_code_
+	const app_uart_comm_params_t comm_params =
+		{
+				9,10,12,11,
+				APP_UART_FLOW_CONTROL_ENABLED,
+				false,
+				UART_BAUDRATE_BAUDRATE_Baud115200
+		};
 
+	APP_UART_FIFO_INIT(&comm_params,
+											 UART_RX_BUF_SIZE,
+											 UART_TX_BUF_SIZE,
+											 uart_error_handle,
+											 APP_IRQ_PRIORITY_LOW,
+											 err_code_);
+
+	APP_ERROR_CHECK(err_code_);
+}
+static void sensors_init(){
+	GPIOEXP1_init();
+	MUX_init();
+	twi_init();
+	printf("\r\nFinished twi init: \r\n");
+	LEDS_CONFIGURE(LEDS_MASK);
+  LEDS_OFF(LEDS_MASK);
+	LED_BT_on();
+}
 /**@brief Function for application main entry.
  */
 int main(void)
@@ -1084,6 +1114,10 @@ int main(void)
     err_code = NRF_LOG_INIT(NULL);
     APP_ERROR_CHECK(err_code);
 
+		UART_init(); //init UART before sensors for debug messages to print
+		sensors_init();
+		
+	
     timers_init();
 		application_timers_start();
     buttons_leds_init(&erase_bonds);
